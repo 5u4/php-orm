@@ -2,9 +2,6 @@
 
 namespace App\Database;
 
-use App\Database\Database;
-use App\Database\Blueprint;
-
 class Schema
 {
     /**

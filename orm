@@ -3,13 +3,17 @@
 
 includeAll('./');
 
+use Cli\Command;
+
+Command::executeCommandAction($argv);
+
 /**
  * Include All Paths
  *
  * @param $dir
  */
 function includeAll($dir) {
-    $paths = glob($dir . '/*.php');
+    $paths = glob($dir . '/*');
     foreach ($paths as $path) {
         if (preg_match('/\.php$/', $path)) {
             include_once $path;
