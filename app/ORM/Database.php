@@ -70,6 +70,8 @@ class Database
 
         $query .= ');';
 
+        print $query;
+
         self::databaseQuery($query);
     }
 
