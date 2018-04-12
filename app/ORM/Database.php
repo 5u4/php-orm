@@ -40,9 +40,9 @@ class Database
      *
      * example:
      *
-     * Database::createTable(['name' => 'INT NOT NULL'], ['PRIMARY KEY' => 'name'])
+     * Database::createTable('test', ['name' => ['INT', 'NOT NULL']], ['PRIMARY KEY' => 'name'])
      * creates table with query:
-     * CREATE TABLE IF NOT EXISTS ('name' INT NOT NULL, PRIMARY KEY (name));
+     * CREATE TABLE IF NOT EXISTS test (`name` INT NOT NULL, PRIMARY KEY (`name`));
      *
      * @param string $tableName
      * @param array $columns
@@ -50,7 +50,7 @@ class Database
      * @param bool $ifNotExists
      * @throws \Exception
      */
-    public static function createTable(string $tableName, array $columns, array $constraints = null, bool $ifNotExists = true)
+    public static function createTable(string $tableName, array $columns, array $constraints = null, bool $ifNotExists = true): void
     {
         self::initialize();
 
@@ -62,10 +62,10 @@ class Database
 
         $query .= $tableName . ' ';
 
-        $query .= '(' . self::formater($columns, ', ', "`%s` %s");
+        $query .= '(' . self::formatter($columns, "%s %s", ', ', ' ');
 
         if (isset($constraints)) {
-            $query .= ', ' . self::formater($constraints, ', ', '%s (`%s`)');
+            $query .= ', ' . self::formatter($constraints, '%s (%s)', ', ');
         }
 
         $query .= ');';
@@ -98,25 +98,40 @@ class Database
     /**
      * Format array to a desired formatted string
      *
-     * @param array $columns
-     * @param string $glueBetweenElements
+     * example:
+     * Database::formatter(['name' => ['INT', 'NOT NULL']], "`%s` %s", ', ', ' ')
+     * outputs
+     * `name` INT NOT NULL
+     *
+     * @param array $items
      * @param string $format
+     * @param string $glueBetweenElements
+     * @param string|null $glueBetweenItems
      * @return string
      */
-    private static function formater(array $columns, string $glueBetweenElements, string $format): string
+    private static function formatter(array $items, string $format, string $glueBetweenElements, string $glueBetweenItems = null): string
     {
-        return implode($glueBetweenElements, array_map(
-            function ($v, $k) use ($format) { return sprintf($format, $k, $v); },
-            $columns,
-            array_keys($columns)
-        ));
+        $queryItems = '';
+
+        foreach ($items as $key => $value) {
+            if (is_array($value)) {
+                $value = implode(
+                    isset($glueBetweenItems) ? $glueBetweenItems : $glueBetweenElements,
+                    $value
+                );
+            }
+
+            $queryItems .= sprintf($format, $key, $value) . $glueBetweenElements;
+        }
+
+        return rtrim($queryItems, $glueBetweenElements);
     }
 
     /**
      * @param string $query
      * @throws \Exception
      */
-    private static function databaseQuery(string $query)
+    private static function databaseQuery(string $query): void
     {
         $result = self::$database->query($query);
 
@@ -124,11 +139,4 @@ class Database
             throw new \Exception(mysqli_error(self::$database) . "\n" . $query . "\n\n");
         }
     }
-}
-
-
-try {
-    Database::createTable('test', ['name' => 'INT NOT NULL'], ['PRIMARY KEY' => 'name']);
-} catch (\Exception $e) {
-    echo $e->getMessage();
 }
