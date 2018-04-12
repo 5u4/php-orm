@@ -1,6 +1,6 @@
 <?php
 
-namespace App\ORM;
+namespace App\Database;
 
 class Blueprint
 {

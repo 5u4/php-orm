@@ -1,12 +1,12 @@
 <?php
 
-namespace App\ORM;
+namespace App\Database;
 
-include './app/ORM/Database.php';
-include './app/ORM/Blueprint.php';
+include './app/Database/Database.php';
+include './app/Database/Blueprint.php';
 
-use App\ORM\Database;
-use App\ORM\Blueprint;
+use App\Database\Database;
+use App\Database\Blueprint;
 
 class Schema
 {
