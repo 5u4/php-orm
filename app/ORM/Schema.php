@@ -16,10 +16,10 @@ class Schema
      * Example:
      * Schema::create('test', function (Blueprint $table) {
      *     $table->string('name')->notNull()->primary();
-     *     $table->int('on_constraint');
+     *     $table->int('no_constraint');
      *     $table->string('some_how_related_to_no_constraint');
      *
-     *     $table->unique(['on_constraint', 'some_how_related_to_no_constraint']);
+     *     $table->unique(['no_constraint', 'some_how_related_to_no_constraint']);
      *
      *     return $table;
      * }, true);
