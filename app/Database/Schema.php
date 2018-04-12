@@ -2,9 +2,6 @@
 
 namespace App\Database;
 
-include './app/Database/Database.php';
-include './app/Database/Blueprint.php';
-
 use App\Database\Database;
 use App\Database\Blueprint;
 

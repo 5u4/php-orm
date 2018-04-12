@@ -2,8 +2,6 @@
 
 namespace App\Database;
 
-include './app/Config/Config.php';
-
 use mysqli;
 use App\Config\Config;
 

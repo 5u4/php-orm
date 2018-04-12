@@ -15,7 +15,7 @@ class Config
      *
      * @var array $configs
      */
-    public static $configs = [];
+    private static $configs = [];
 
     /**
      * Variable to determine if the static object exists

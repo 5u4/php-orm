@@ -1,0 +1,20 @@
+#!/usr/bin/php
+<?php
+
+includeAll('./');
+
+/**
+ * Include All Paths
+ *
+ * @param $dir
+ */
+function includeAll($dir) {
+    $paths = glob($dir . '/*.php');
+    foreach ($paths as $path) {
+        if (preg_match('/\.php$/', $path)) {
+            include_once $path;
+        } elseif (is_dir($path)) {
+            includeAll($path);
+        }
+    }
+}
