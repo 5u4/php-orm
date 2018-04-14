@@ -72,6 +72,28 @@ class Database
     }
 
     /**
+     * Insert values into table
+     *
+     * @param string $tableName
+     * @param array $columns
+     * @throws \Exception
+     */
+    public static function insertInto(string $tableName, array $columns)
+    {
+        self::initialize();
+
+        $query = 'INSERT INTO ';
+
+        $query .= $tableName . ' ';
+
+        $query .= '(' . implode(', ', array_keys($columns)) . ') ';
+
+        $query .= 'VALUES (' . implode(', ', array_values($columns)) . ') ';
+
+        self::databaseQuery($query);
+    }
+
+    /**
      * Connecting to MySQL
      *
      * @return mysqli
@@ -137,4 +159,14 @@ class Database
             throw new \Exception(mysqli_error(self::$database) . "\n" . $query . "\n\n");
         }
     }
+}
+
+try {
+    Database::insertInto('users', [
+        'username' => 'testing',
+        'email' => 'testemail',
+        'password' => 'pw'
+    ]);
+} catch (\Exception $e) {
+    echo $e->getMessage();
 }
