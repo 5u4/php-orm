@@ -1,0 +1,15 @@
+{
+    "name": "senhung/php-mysql-orm",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Senhung Wong",
+            "email": "0x53656e@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.0",
+        "senhung/command-line-interface": "^0.4.1",
+        "senhung/config-read-write": "^1.1"
+    }
+}

@@ -1,0 +1,100 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "0bca472bdee092074ea76ae8adcb2ee9",
+    "packages": [
+        {
+            "name": "senhung/command-line-interface",
+            "version": "0.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/senhungwong/command-line-interface.git",
+                "reference": "d226338abeb58300b4704762193540d58579037f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/senhungwong/command-line-interface/zipball/d226338abeb58300b4704762193540d58579037f",
+                "reference": "d226338abeb58300b4704762193540d58579037f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Senhung\\Command\\": "src/",
+                    "Senhung\\CommandEntry\\": "src/"
+                },
+                "files": [
+                    "src/Command.php",
+                    "src/CommandEntry.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Senhung Wong",
+                    "email": "0x53656e@gmail.com"
+                }
+            ],
+            "description": "A php script command setter",
+            "time": "2018-04-29T04:27:17+00:00"
+        },
+        {
+            "name": "senhung/config-read-write",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/senhungwong/config-read-write.git",
+                "reference": "4caa9445630455335f3a398181c4a919b913ca7e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/senhungwong/config-read-write/zipball/4caa9445630455335f3a398181c4a919b913ca7e",
+                "reference": "4caa9445630455335f3a398181c4a919b913ca7e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Senhung\\Config\\": "src/Configuration/"
+                },
+                "files": [
+                    "src/Configuration/Configuration.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Senhung Wong",
+                    "email": "0x53656e@gmail.com"
+                }
+            ],
+            "description": "A package for reading and writing config file",
+            "time": "2018-04-28T17:41:42+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=7.1.0"
+    },
+    "platform-dev": []
+}
