@@ -2,8 +2,6 @@
 
 namespace Senhung\ORM\Database;
 
-require_once $_SERVER['DOCUMENT_ROOT'] . 'vendor/autoload.php';
-
 use mysqli;
 use Senhung\Config\Configuration;
 
