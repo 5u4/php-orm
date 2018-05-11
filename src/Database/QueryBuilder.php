@@ -20,7 +20,7 @@ class QueryBuilder
      *
      * example:
      *
-     * Database::createTable('test', ['name' => ['INT', 'NOT NULL']], ['PRIMARY KEY' => 'name'])
+     * QueryBuilder::createTable('test', ['name' => ['INT', 'NOT NULL']], ['PRIMARY KEY' => 'name'], true)
      * creates table with query:
      * CREATE TABLE IF NOT EXISTS test (`name` INT NOT NULL, PRIMARY KEY (`name`));
      *
@@ -47,6 +47,68 @@ class QueryBuilder
         }
 
         $this->query .= ');';
+    }
+
+    /**
+     * SELECT ...
+     *
+     * @param array|string $columns
+     * @return QueryBuilder
+     */
+    public function select($columns): QueryBuilder
+    {
+        $this->query .= 'SELECT ';
+
+        if (gettype($columns) == 'array') {
+            $this->query .= implode(", ", $columns) . ' ';
+        } else {
+            $this->query .= $columns . ' ';
+        }
+
+        return $this;
+    }
+
+    /**
+     * FROM ...
+     *
+     * @param string $table
+     * @return QueryBuilder
+     */
+    public function from(string $table): QueryBuilder
+    {
+        $this->query .= 'FROM ' . $table . ' ';
+
+        return $this;
+    }
+
+    /**
+     * WHERE ...
+     *
+     * @param array $conditions
+     * @return QueryBuilder
+     */
+    public function where(array $conditions): QueryBuilder
+    {
+        $this->query .= 'WHERE ';
+
+        /* One Condition: ['name', '=', 'alex'] */
+        if (gettype($conditions[0]) != 'array') {
+            $this->query .= '`' . $conditions[0] . '` ' . $conditions[1] . ' ' . $conditions[2] . ' ';
+        }
+
+        /* Multiple Conditions: [
+            ['name', '=', 'alex'],
+            ['age', '>', '20']
+        ] */
+        else {
+            $cons = [];
+            foreach ($conditions as $condition) {
+                $cons[] = implode(" ", $condition);
+            }
+            $this->query .= implode(" AND ", $cons) . ' ';
+        }
+
+        return $this;
     }
 
     /**

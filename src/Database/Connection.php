@@ -63,9 +63,10 @@ class Connection
 
     /**
      * @param string $query
+     * @return bool|\mysqli_result
      * @throws \Exception
      */
-    public static function query(string $query): void
+    public static function query(string $query)
     {
         self::initialize();
 
@@ -74,5 +75,7 @@ class Connection
         if (!$result) {
             throw new \Exception(mysqli_error(self::$database) . "\n" . $query . "\n\n");
         }
+
+        return $result;
     }
 }
