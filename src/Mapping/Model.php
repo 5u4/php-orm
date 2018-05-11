@@ -7,6 +7,8 @@ use Senhung\ORM\Database\Connection;
 
 class Model
 {
+    private $isNew = true;
+
     protected $table = null;
 
     public $primaryKey = null;
@@ -37,6 +39,9 @@ class Model
         /* Convert the results to model attributes */
         $this->contentToModel($result->fetch_assoc());
 
+        /* Set Found Object */
+        $this->isNew = false;
+
         return $this;
     }
 
@@ -54,22 +59,35 @@ class Model
 
     public function save()
     {
+        /* If current object is a new object, create */
+        if ($this->isNew) {
+            $this->insertNewRow();
+        }
 
+        /* Alter current row */
+        else {
+
+        }
     }
 
-//    /**
-//     * Get all model attributes
-//     *
-//     * @return array
-//     */
-//    private function getAttributes(): array
-//    {
-//        $attributes = get_object_vars($this);
-//
-//        foreach (self::VARIABLES_OTHER_THAN_ATTRIBUTES as $variable) {
-//            unset($attributes[$variable]);
-//        }
-//
-//        return $attributes;
-//    }
+    /**
+     * Insert current object into MySQL
+     */
+    private function insertNewRow(): void
+    {
+        $fields = $this->fillable;
+        $values = [];
+        foreach ($fields as $field) {
+            $values[] = $this->$field;
+        }
+
+        $query = new QueryBuilder();
+        $query->insertInto($this->table, $fields)->values($values);
+
+        try {
+            Connection::query($query->getQuery());
+        } catch (\Exception $e) {
+            exit($e->getMessage());
+        }
+    }
 }

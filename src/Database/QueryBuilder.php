@@ -112,6 +112,33 @@ class QueryBuilder
     }
 
     /**
+     * INSERT INTO ...
+     *
+     * @param string $table
+     * @param array $fields
+     * @return QueryBuilder
+     */
+    public function insertInto(string $table, array $fields): QueryBuilder
+    {
+        $this->query = 'INSERT INTO `' . $table . '` (`' . implode('`, `', $fields) . '`) ';
+
+        return $this;
+    }
+
+    /**
+     * VALUES ...
+     *
+     * @param array $values
+     * @return QueryBuilder
+     */
+    public function values(array $values): QueryBuilder
+    {
+        $this->query .= "VALUES ('" . implode("', '", $values) . "') ";
+
+        return $this;
+    }
+
+    /**
      * Format array to a desired formatted string
      *
      * example:

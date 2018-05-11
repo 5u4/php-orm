@@ -47,6 +47,7 @@ class Blueprint
     private const NOT_NULL = 'NOT NULL';
     private const PRIMARY_KEY = 'PRIMARY KEY';
     private const UNIQUE = 'UNIQUE';
+    private const AUTO_INCREMENT = 'AUTO_INCREMENT';
 
     /**
      * @return array
@@ -126,6 +127,20 @@ class Blueprint
     {
         return $this->constraintDeclaration(
             Blueprint::UNIQUE,
+            isset($columnNames) ? $columnNames : null
+        );
+    }
+
+    /**
+     * Set column as auto increment
+     *
+     * @param array|string|null $columnNames
+     * @return Blueprint
+     */
+    public function autoIncrement($columnNames = null): Blueprint
+    {
+        return $this->constraintDeclaration(
+            Blueprint::AUTO_INCREMENT,
             isset($columnNames) ? $columnNames : null
         );
     }
