@@ -139,6 +139,40 @@ class QueryBuilder
     }
 
     /**
+     * UPDATE ...
+     *
+     * @param string $table
+     * @return QueryBuilder
+     */
+    public function update(string $table): QueryBuilder
+    {
+        $this->query .= "UPDATE " . $table . ' ';
+
+        return $this;
+    }
+
+    /**
+     * SET ...
+     *
+     * @param array $fields
+     * @return QueryBuilder
+     */
+    public function set(array $fields): QueryBuilder
+    {
+        $this->query .= "SET ";
+
+        $attributes = [];
+
+        foreach ($fields as $field => $value) {
+            $attributes[] = $field . "='" . $value . "' ";
+        }
+
+        $this->query .= implode(', ', $attributes);
+
+        return $this;
+    }
+
+    /**
      * Format array to a desired formatted string
      *
      * example:

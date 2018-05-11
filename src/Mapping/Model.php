@@ -66,8 +66,24 @@ class Model
 
         /* Alter current row */
         else {
-
+            $this->updateRow();
         }
+    }
+
+    /**
+     * Get current object fillable attributes
+     *
+     * @return array
+     */
+    private function getFillableAttributes(): array
+    {
+        $fields = $this->fillable;
+        $attributes = [];
+        foreach ($fields as $field) {
+            $attributes[$field] = $this->$field;
+        }
+
+        return $attributes;
     }
 
     /**
@@ -75,14 +91,29 @@ class Model
      */
     private function insertNewRow(): void
     {
-        $fields = $this->fillable;
-        $values = [];
-        foreach ($fields as $field) {
-            $values[] = $this->$field;
-        }
+        $attributes = $this->getFillableAttributes();
 
         $query = new QueryBuilder();
-        $query->insertInto($this->table, $fields)->values($values);
+        $query->insertInto($this->table, array_keys($attributes))->values(array_values($attributes));
+
+        try {
+            Connection::query($query->getQuery());
+        } catch (\Exception $e) {
+            exit($e->getMessage());
+        }
+    }
+
+    /**
+     * Update current object into MySQL
+     */
+    private function updateRow(): void
+    {
+        $primaryKey = $this->primaryKey;
+
+        $attributes = $this->getFillableAttributes();
+
+        $query = new QueryBuilder();
+        $query->update($this->table)->set($attributes)->where([$primaryKey, '=', $this->$primaryKey]);
 
         try {
             Connection::query($query->getQuery());
