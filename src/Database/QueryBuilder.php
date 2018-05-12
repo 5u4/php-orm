@@ -4,6 +4,13 @@ namespace Senhung\ORM\Database;
 
 class QueryBuilder
 {
+    /* Reference Options */
+    public const RESTRICT = 'RESTRICT';
+    public const CASCADE = 'CASCADE';
+    public const SET_NULL = 'SET NULL';
+    public const NO_ACTION = 'NO ACTION';
+    public const SET_DEFAULT = 'SET DEFAULT';
+
     /** @var string $query */
     private $query = '';
 
@@ -13,6 +20,14 @@ class QueryBuilder
     public function getQuery(): string
     {
         return $this->query;
+    }
+
+    /**
+     * Clear current query
+     */
+    public function clear(): void
+    {
+        $this->query = '';
     }
 
     /**
@@ -32,7 +47,7 @@ class QueryBuilder
      */
     public function createTable(string $tableName, array $columns, array $constraints = null, bool $ifNotExists = true): void
     {
-        $this->query = 'CREATE TABLE ';
+        $this->query .= 'CREATE TABLE ';
 
         if ($ifNotExists) {
             $this->query .= 'IF NOT EXISTS ';
@@ -120,7 +135,7 @@ class QueryBuilder
      */
     public function insertInto(string $table, array $fields): QueryBuilder
     {
-        $this->query = 'INSERT INTO `' . $table . '` (`' . implode('`, `', $fields) . '`) ';
+        $this->query .= 'INSERT INTO `' . $table . '` (`' . implode('`, `', $fields) . '`) ';
 
         return $this;
     }
@@ -168,6 +183,75 @@ class QueryBuilder
         }
 
         $this->query .= implode(', ', $attributes);
+
+        return $this;
+    }
+
+    /**
+     * CONSTRAINT ...
+     *
+     * @param string $symbol
+     * @return QueryBuilder
+     */
+    public function constraint(string $symbol): QueryBuilder
+    {
+        $this->query .= "CONSTRAINT ";
+    }
+
+    /**
+     * FOREIGN KEY ...
+     *
+     * @param string $indexName
+     * @param string $columnName
+     * @return QueryBuilder
+     */
+    public function foreign(string $indexName, string $columnName): QueryBuilder
+    {
+        $this->query .= "FOREIGN KEY " . $indexName . " (" . $columnName .") ";
+
+        return $this;
+    }
+
+    /**
+     * REFERENCES ...
+     *
+     * @param string $indexName
+     * @param string|null $columnName
+     * @return QueryBuilder
+     */
+    public function references(string $indexName, string $columnName = null): QueryBuilder
+    {
+        $this->query .= "REFERENCES " . $indexName . " ";
+
+        if ($columnName) {
+            $this->query .= "(" . $columnName .") ";
+        }
+
+        return $this;
+    }
+
+    /**
+     * ON DELETE ...
+     *
+     * @param string $referenceOption
+     * @return QueryBuilder
+     */
+    public function onDelete(string $referenceOption): QueryBuilder
+    {
+        $this->query .= "ON DELETE " . $referenceOption . " ";
+
+        return $this;
+    }
+
+    /**
+     * ON UPDATE ...
+     *
+     * @param string $referenceOption
+     * @return QueryBuilder
+     */
+    public function onUpdate(string $referenceOption): QueryBuilder
+    {
+        $this->query .= "ON UPDATE " . $referenceOption . " ";
 
         return $this;
     }

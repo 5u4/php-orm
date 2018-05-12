@@ -23,6 +23,24 @@ $query->createTable('users', ['name' => ['INT', 'NOT NULL']], ['PRIMARY KEY' => 
 print $query->getQuery();
 ```
 
+## Foreign Key Constraint
+
+Example:
+
+```php
+<?php
+
+use Senhung\ORM\Database\QueryBuilder;
+
+$query = new QueryBuilder();
+
+$query->foreign('users', 'passport_id')->references('passport', 'id')->onDelete(QueryBuilder::CASCADE)->onUpdate(QueryBuilder::CASCADE);
+
+/* FOREIGN KEY users (passport_id) REFERENCES passport (id) ON DELETE CASCADE ON UPDATE CASCADE */
+print $query->getQuery();
+```
+
+
 ## Select
 
 Example:
@@ -87,4 +105,19 @@ $query->update('users')->set(['name' => 'senhung'])->where(['name', '=', 'alex']
 
 /* UPDATE users SET name='senhung' WHERE `name` = alex */
 print $query->getQuery();
+```
+
+## Clear
+
+```php
+<?php
+
+use Senhung\ORM\Database\QueryBuilder;
+
+$query = new QueryBuilder();
+
+/* ... */
+
+/* Set query to empty */
+$query->clear();
 ```
