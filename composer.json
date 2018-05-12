@@ -9,11 +9,11 @@
     ],
     "autoload": {
         "psr-4": {
-            "Senhung\\ORM\\Database\\Blueprint\\": "src/Database",
-            "Senhung\\ORM\\Database\\Connection\\": "src/Database",
-            "Senhung\\ORM\\Database\\QueryBuilder\\": "src/Database",
-            "Senhung\\ORM\\Database\\Schema\\": "src/Database",
-            "Senhung\\ORM\\Mapping\\Model\\": "src/Mapping"
+            "Senhung\\ORM\\Database\\Blueprint\\": "src/Database/",
+            "Senhung\\ORM\\Database\\Connection\\": "src/Database/",
+            "Senhung\\ORM\\Database\\QueryBuilder\\": "src/Database/",
+            "Senhung\\ORM\\Database\\Schema\\": "src/Database/",
+            "Senhung\\ORM\\Mapping\\Model\\": "src/Mapping/"
         },
         "files": [
             "src/Database/Blueprint.php",
