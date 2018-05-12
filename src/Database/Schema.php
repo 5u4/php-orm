@@ -21,7 +21,7 @@ class Schema
      * @param bool $ifNotExists
      * @return void
      */
-    public static function create(string $tableName, callable $function, bool $ifNotExists = false): void
+    public static function create(string $tableName, callable $function, bool $ifNotExists = true): void
     {
         /* Get Table Columns + Constraints */
         $table = new Blueprint();

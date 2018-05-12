@@ -7,27 +7,52 @@ use Senhung\ORM\Database\Connection;
 
 class Model
 {
+    /**
+     * Check if the object is a new row or existing row
+     *
+     * @var bool $isNew
+     */
     private $isNew = true;
 
+    /**
+     * The table name
+     *
+     * @var string|null $table
+     */
     protected $table = null;
 
-    public $primaryKey = null;
+    /**
+     * The primary key of the table
+     *
+     * @var array|string|null $primaryKey
+     */
+    protected $primaryKey = null;
 
-    public $fillable = [];
+    /**
+     * All the fillable attributes in the table
+     *
+     * @var array $fillable;
+     */
+    protected $fillable = [];
+
+    public function __construct()
+    {
+        // TODO: Call find method optionally
+    }
 
     /**
      * Set current object to a row with input id
      *
-     * @param int $id
+     * @param string|int $primaryKey
      * @return $this
      */
-    public function find(int $id): self
+    public function find($primaryKey): self
     {
         /* Build select query */
         $currentRow = new QueryBuilder();
 
         /* Select all from database */
-        $currentRow->select('*')->from($this->table)->where([$this->primaryKey, '=', $id]);
+        $currentRow->select('*')->from($this->table)->where([$this->primaryKey, '=', $primaryKey]);
 
         /* Query */
         try {
@@ -57,7 +82,10 @@ class Model
         }
     }
 
-    public function save()
+    /**
+     * Save current model to MySQL
+     */
+    public function save(): void
     {
         /* If current object is a new object, create */
         if ($this->isNew) {
