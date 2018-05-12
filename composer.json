@@ -1,5 +1,6 @@
 {
     "name": "senhung/php-mysql-orm",
+    "description": "A simple object relational mapping for MySQL.",
     "license": "MIT",
     "authors": [
         {
@@ -25,7 +26,6 @@
     },
     "require": {
         "php": ">=7.1.0",
-        "senhung/command-line-interface": "^0.4.1",
         "senhung/config-read-write": "^1.1"
     }
 }
