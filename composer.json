@@ -7,6 +7,22 @@
             "email": "0x53656e@gmail.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "Senhung\\ORM\\Database\\Blueprint": "src/Database",
+            "Senhung\\ORM\\Database\\Connection": "src/Database",
+            "Senhung\\ORM\\Database\\QueryBuilder": "src/Database",
+            "Senhung\\ORM\\Database\\Schema": "src/Database",
+            "Senhung\\ORM\\Mapping\\Model": "src/Mapping"
+        },
+        "files": [
+            "src/Database/Blueprint.php",
+            "src/Database/Connection.php",
+            "src/Database/QueryBuilder.php",
+            "src/Database/Schema.php",
+            "src/Mapping/Model.php"
+        ]
+    },
     "require": {
         "php": ">=7.1.0",
         "senhung/command-line-interface": "^0.4.1",
