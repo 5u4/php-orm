@@ -37,3 +37,14 @@ $user = new User();
 /* Find user has id of 1 */
 $user->find(1);
 ```
+
+Or you can simply use the constructor to find
+
+```php
+<?php
+
+use User;
+
+/* Find user has id of 1 */
+$user = new User(1);
+```

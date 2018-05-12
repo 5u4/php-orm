@@ -35,9 +35,15 @@ class Model
      */
     protected $fillable = [];
 
-    public function __construct()
+    /**
+     * Model constructor.
+     * @param string|int|null $primaryKey
+     */
+    public function __construct($primaryKey = null)
     {
-        // TODO: Call find method optionally
+        if ($primaryKey) {
+            $this->find($primaryKey);
+        }
     }
 
     /**
