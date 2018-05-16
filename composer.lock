@@ -4,61 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0bca472bdee092074ea76ae8adcb2ee9",
+    "content-hash": "772a397fadc36d414344663ee2cd4424",
     "packages": [
         {
-            "name": "senhung/command-line-interface",
-            "version": "0.4.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/senhungwong/command-line-interface.git",
-                "reference": "d226338abeb58300b4704762193540d58579037f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/senhungwong/command-line-interface/zipball/d226338abeb58300b4704762193540d58579037f",
-                "reference": "d226338abeb58300b4704762193540d58579037f",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Senhung\\Command\\": "src/",
-                    "Senhung\\CommandEntry\\": "src/"
-                },
-                "files": [
-                    "src/Command.php",
-                    "src/CommandEntry.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Senhung Wong",
-                    "email": "0x53656e@gmail.com"
-                }
-            ],
-            "description": "A php script command setter",
-            "time": "2018-04-29T04:27:17+00:00"
-        },
-        {
             "name": "senhung/config-read-write",
-            "version": "1.1.0",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/senhungwong/config-read-write.git",
-                "reference": "4caa9445630455335f3a398181c4a919b913ca7e"
+                "reference": "18cedc440046fc35319fdd84ab4a83a354fdfcd0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/senhungwong/config-read-write/zipball/4caa9445630455335f3a398181c4a919b913ca7e",
-                "reference": "4caa9445630455335f3a398181c4a919b913ca7e",
+                "url": "https://api.github.com/repos/senhungwong/config-read-write/zipball/18cedc440046fc35319fdd84ab4a83a354fdfcd0",
+                "reference": "18cedc440046fc35319fdd84ab4a83a354fdfcd0",
                 "shasum": ""
             },
             "require": {
@@ -84,7 +43,93 @@
                 }
             ],
             "description": "A package for reading and writing config file",
-            "time": "2018-04-28T17:41:42+00:00"
+            "time": "2018-05-15T14:54:49+00:00"
+        },
+        {
+            "name": "senhung/database-interaction",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/senhungwong/php-database.git",
+                "reference": "84dabc7353c3fae99235b7bccb53bdc5c7c62edd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/senhungwong/php-database/zipball/84dabc7353c3fae99235b7bccb53bdc5c7c62edd",
+                "reference": "84dabc7353c3fae99235b7bccb53bdc5c7c62edd",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0",
+                "senhung/config-read-write": "~2.0.0",
+                "senhung/loader": "~2.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Senhung\\DB\\Database\\Connection\\": "src/Database",
+                    "Senhung\\DB\\Database\\QueryBuilder\\": "src/Database",
+                    "Senhung\\DB\\Schema\\Blueprint\\": "src/Schema",
+                    "Senhung\\DB\\Schema\\Schema\\": "src/Schema"
+                },
+                "files": [
+                    "src/Database/Connection.php",
+                    "src/Database/QueryBuilder.php",
+                    "src/Schema/Blueprint.php",
+                    "src/Schema/Schema.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Senhung Wong",
+                    "email": "0x53656e@gmail.com"
+                }
+            ],
+            "description": "PHP interactions with databases",
+            "time": "2018-05-16T00:57:42+00:00"
+        },
+        {
+            "name": "senhung/loader",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/senhungwong/php-loader.git",
+                "reference": "326a7785ea5771d0e478bd1f898edeafac52f48f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/senhungwong/php-loader/zipball/326a7785ea5771d0e478bd1f898edeafac52f48f",
+                "reference": "326a7785ea5771d0e478bd1f898edeafac52f48f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Senhung\\Loader\\Loader\\": "src/"
+                },
+                "files": [
+                    "src/Loader.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Senhung Wong",
+                    "email": "0x53656e@gmail.com"
+                }
+            ],
+            "description": "Some helper functions for building a structured php scripts",
+            "time": "2018-05-15T15:21:02+00:00"
         }
     ],
     "packages-dev": [],

@@ -2,8 +2,8 @@
 
 namespace Senhung\ORM\Mapping;
 
-use Senhung\ORM\Database\QueryBuilder;
-use Senhung\ORM\Database\Connection;
+use Senhung\DB\Database\QueryBuilder;
+use Senhung\DB\Database\Connection;
 
 class Model
 {
@@ -20,6 +20,20 @@ class Model
      * @var string|null $table
      */
     protected $table = null;
+
+    /**
+     * The database name
+     *
+     * @var string $database
+     */
+    protected $database = 'DB';
+
+    /**
+     * Database connection
+     *
+     * @var Connection $connection
+     */
+    private $connection;
 
     /**
      * The primary key of the table
@@ -41,6 +55,8 @@ class Model
      */
     public function __construct($primaryKey = null)
     {
+        $this->connection = new Connection($this->database);
+
         if ($primaryKey) {
             $this->find($primaryKey);
         }
@@ -51,6 +67,7 @@ class Model
      *
      * @param string|int $primaryKey
      * @return $this
+     * @throws \Exception
      */
     public function find($primaryKey): self
     {
@@ -61,10 +78,12 @@ class Model
         $currentRow->select('*')->from($this->table)->where([$this->primaryKey, '=', $primaryKey]);
 
         /* Query */
-        try {
-            $result = Connection::query($currentRow->getQuery());
-        } catch (\Exception $e) {
-            exit($e->getMessage());
+        $result = $this->connection->query($currentRow);
+
+        /* If the user is not found */
+        if ($result->num_rows <= 0) {
+            $message = get_class($this) . " with " . $this->primaryKey . " " . $primaryKey . " is not found\n";
+            throw new \Exception($message);
         }
 
         /* Convert the results to model attributes */
@@ -130,11 +149,7 @@ class Model
         $query = new QueryBuilder();
         $query->insertInto($this->table, array_keys($attributes))->values(array_values($attributes));
 
-        try {
-            Connection::query($query->getQuery());
-        } catch (\Exception $e) {
-            exit($e->getMessage());
-        }
+        $this->connection->query($query);
     }
 
     /**
@@ -149,10 +164,6 @@ class Model
         $query = new QueryBuilder();
         $query->update($this->table)->set($attributes)->where([$primaryKey, '=', $this->$primaryKey]);
 
-        try {
-            Connection::query($query->getQuery());
-        } catch (\Exception $e) {
-            exit($e->getMessage());
-        }
+        $this->connection->query($query);
     }
 }

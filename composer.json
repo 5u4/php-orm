@@ -1,6 +1,6 @@
 {
-    "name": "senhung/php-mysql-orm",
-    "description": "A simple object relational mapping for MySQL.",
+    "name": "senhung/orm",
+    "description": "A simple object relational mapping for databases.",
     "license": "MIT",
     "authors": [
         {
@@ -10,22 +10,15 @@
     ],
     "autoload": {
         "psr-4": {
-            "Senhung\\ORM\\Database\\Blueprint\\": "src/Database/",
-            "Senhung\\ORM\\Database\\Connection\\": "src/Database/",
-            "Senhung\\ORM\\Database\\QueryBuilder\\": "src/Database/",
-            "Senhung\\ORM\\Database\\Schema\\": "src/Database/",
             "Senhung\\ORM\\Mapping\\Model\\": "src/Mapping/"
         },
         "files": [
-            "src/Database/Blueprint.php",
-            "src/Database/Connection.php",
-            "src/Database/QueryBuilder.php",
-            "src/Database/Schema.php",
             "src/Mapping/Model.php"
         ]
     },
     "require": {
         "php": ">=7.1.0",
-        "senhung/config-read-write": "^1.1"
+        "senhung/config-read-write": "~2.0.0",
+        "senhung/database-interaction": "~1.1.0"
     }
 }

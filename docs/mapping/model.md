@@ -20,7 +20,7 @@ class User extends Model
 ### find
 
 ```php
-Model::find(int|string $primaryKey): void;
+Model::find(int|string $primaryKey): void
 ```
 
 Set the current object to the row that has the same primary key as input
