@@ -103,6 +103,7 @@ class Model
     private function contentToModel(array $results): void
     {
         foreach ($results as $key => $column) {
+            /* Assign the result to current model's attributes */
             $this->$key = $column;
         }
     }
@@ -117,7 +118,7 @@ class Model
             $this->insertNewRow();
         }
 
-        /* Alter current row */
+        /* Else update current row */
         else {
             $this->updateRow();
         }
@@ -130,10 +131,15 @@ class Model
      */
     private function getFillableAttributes(): array
     {
-        $fields = $this->fillable;
         $attributes = [];
-        foreach ($fields as $field) {
-            $attributes[$field] = $this->$field;
+
+        /* Go through fillable array */
+        foreach ($this->fillable as $field) {
+            /* Check if current model has the attribute */
+            if (isset($this->$field)) {
+                /* Push model field to attribute array */
+                $attributes[$field] = $this->$field;
+            }
         }
 
         return $attributes;
@@ -144,12 +150,19 @@ class Model
      */
     private function insertNewRow(): void
     {
+        /* Get all fillable attributes */
         $attributes = $this->getFillableAttributes();
 
+        /* Build insert query */
         $query = new QueryBuilder();
+
         $query->insertInto($this->table, array_keys($attributes))->values(array_values($attributes));
 
+        /* Query */
         $this->connection->query($query);
+
+        /* Set current instance to not new */
+        $this->isNew = false;
     }
 
     /**
@@ -157,13 +170,15 @@ class Model
      */
     private function updateRow(): void
     {
-        $primaryKey = $this->primaryKey;
-
+        /* Get all fillable attributes */
         $attributes = $this->getFillableAttributes();
 
+        /* Build update query */
         $query = new QueryBuilder();
-        $query->update($this->table)->set($attributes)->where([$primaryKey, '=', $this->$primaryKey]);
 
+        $query->update($this->table)->set($attributes)->where([$this->primaryKey, '=', $this->{$this->primaryKey}]);
+
+        /* Query */
         $this->connection->query($query);
     }
 }
