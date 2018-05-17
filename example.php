@@ -2,6 +2,7 @@
 
 require_once 'vendor/autoload.php';
 require_once 'src/Mapping/Model.php';
+require_once 'src/Relations/Relation.php';
 
 /* -------------------------------------------------
  * Database Connection
@@ -57,7 +58,23 @@ class User extends Model
 {
     protected $table = 'users';
     protected $primaryKey = 'id';
-    protected $fillable = ['username', 'email', 'password'];
+    protected $fillable = ['username', 'email', 'password', 'passport_id'];
+
+    public function passport()
+    {
+        return $this->hasOne(Passport::class, 'id', 'passport_id');
+    }
+}
+
+/**
+ * Class Passport
+ * @property string $country
+ */
+class Passport extends Model
+{
+    protected $table = 'passports';
+    protected $primaryKey = 'id';
+    protected $fillable = ['country'];
 }
 
 /* -------------------------------------------------
@@ -65,11 +82,17 @@ class User extends Model
  * -------------------------------------------------
  */
 
+$passport = new Passport();
+$passport->country = 'Canada';
+$passport->save();
+
 $user = new User();
 $user->username = 'user';
 $user->email = 'email@email.com';
 $user->password = 'password';
 $user->save();
+
+$user->passport()->attach($passport);
 
 /* -------------------------------------------------
  * Model Find

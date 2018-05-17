@@ -4,6 +4,7 @@ namespace Senhung\ORM\Mapping;
 
 use Senhung\DB\Database\QueryBuilder;
 use Senhung\DB\Database\Connection;
+use Senhung\ORM\Relations\Relation;
 
 class Model
 {
@@ -96,6 +97,19 @@ class Model
     }
 
     /**
+     * Has one relationship
+     *
+     * @param string $class
+     * @param string $foreignKey
+     * @param string $localKey
+     * @return Relation
+     */
+    public function hasOne(string $class, string $foreignKey, string $localKey)
+    {
+        return new Relation($this, $class, 'id', 'passport_id');
+    }
+
+    /**
      * Set array content to this object
      *
      * @param array $results
@@ -160,6 +174,9 @@ class Model
 
         /* Query */
         $this->connection->query($query);
+
+        /* Set current primary key */
+        $this->{$this->primaryKey} = $this->connection->lastInsertedId();
 
         /* Set current instance to not new */
         $this->isNew = false;

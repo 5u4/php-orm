@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "772a397fadc36d414344663ee2cd4424",
+    "content-hash": "0bc8386ca7d7f8ea8d8b9969a948d1ba",
     "packages": [
         {
             "name": "senhung/config-read-write",
@@ -47,16 +47,16 @@
         },
         {
             "name": "senhung/database-interaction",
-            "version": "v1.1.0",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/senhungwong/php-database.git",
-                "reference": "84dabc7353c3fae99235b7bccb53bdc5c7c62edd"
+                "reference": "e191c3e2f6e0c26fae06268cf564951ab001317c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/senhungwong/php-database/zipball/84dabc7353c3fae99235b7bccb53bdc5c7c62edd",
-                "reference": "84dabc7353c3fae99235b7bccb53bdc5c7c62edd",
+                "url": "https://api.github.com/repos/senhungwong/php-database/zipball/e191c3e2f6e0c26fae06268cf564951ab001317c",
+                "reference": "e191c3e2f6e0c26fae06268cf564951ab001317c",
                 "shasum": ""
             },
             "require": {
@@ -90,7 +90,7 @@
                 }
             ],
             "description": "PHP interactions with databases",
-            "time": "2018-05-16T00:57:42+00:00"
+            "time": "2018-05-17T04:17:03+00:00"
         },
         {
             "name": "senhung/loader",
